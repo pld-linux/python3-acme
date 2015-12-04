@@ -26,7 +26,7 @@ BuildRequires:	python-requests
 BuildRequires:	python-werkzeug
 BuildRequires:	sphinx-pdg
 %if %{with tests}
-BuildRequires:	python-ndg_httpsclient
+BuildRequires:	python-ndg-httpsclient
 BuildRequires:	python-nose
 BuildRequires:	python-tox
 %endif
@@ -48,7 +48,7 @@ BuildRequires:	python3-tox
 BuildRequires:	python-sphinxcontrib-programoutput
 %endif
 Requires:	python-cryptography
-Requires:	python-ndg_httpsclient
+Requires:	python-ndg-httpsclient
 Requires:	python-pyOpenSSL
 Requires:	python-pyasn1
 Requires:	python-pyrfc3339
