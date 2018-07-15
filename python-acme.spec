@@ -5,57 +5,62 @@
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
+%define		cryptography_ver	0.8
+%define		josepy_ver		1.0.0
+%define		pyopenssl_ver		0.13
+%define		requests_ver		2.4.1
+%define		requests_toolbelt_ver	0.3.0
+%define		six_ver			1.9.0
+
 %define		module  acme
 Summary:	Python library for the ACME protocol
 Name:		python-%{module}
-Version:	0.1.0
+Version:	0.26.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/source/a/%{module}/%{module}-%{version}.tar.gz
-# Source0-md5:	7115ba77709b281ffaa59d853cd5337a
+# Source0-md5:	a0f09ed7009d71b11c160e232d6f7aac
 URL:		https://pypi.python.org/pypi/acme
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.713
 %if %{with python2}
-BuildRequires:	python-cryptography
+BuildRequires:	python-cryptography >= %{cryptography_ver}
 BuildRequires:	python-devel
-BuildRequires:	python-pyOpenSSL
+BuildRequires:	python-pyOpenSSL >= %{pyopenssl_ver}
 BuildRequires:	python-pyrfc3339
-BuildRequires:	python-requests
-BuildRequires:	python-werkzeug
+BuildRequires:	python-requests >= %{requests_ver}
 BuildRequires:	sphinx-pdg
 %if %{with tests}
-BuildRequires:	python-ndg-httpsclient
+BuildRequires:	python-josepy >= %{josepy_ver}
+BuildRequires:	python-mock
 BuildRequires:	python-nose
+BuildRequires:	python-requests-toolbelt >= %{requests_toolbelt_ver}
 BuildRequires:	python-tox
 %endif
 %endif
 %if %{with python3}
-BuildRequires:	python3-cryptography
+BuildRequires:	python3-cryptography >= %{cryptography_ver}
 BuildRequires:	python3-devel
-BuildRequires:	python3-pyOpenSSL
+BuildRequires:	python3-pyOpenSSL >= %{pyopenssl_ver}
 BuildRequires:	python3-pyrfc3339
-BuildRequires:	python3-requests
-BuildRequires:	python3-werkzeug
+BuildRequires:	python3-requests >= %{requests_ver}
 %if %{with tests}
-BuildRequires:	python3-ndg_httpsclient
+BuildRequires:	python3-josepy >= %{josepy_ver}
+BuildRequires:	python3-mock
 BuildRequires:	python3-nose
+BuildRequires:	python3-requests-toolbelt >= %{requests_toolbelt_ver}
 BuildRequires:	python3-tox
 %endif
 %endif
-%if %{with doc}
-BuildRequires:	python-sphinxcontrib-programoutput
-%endif
-Requires:	python-cryptography
-Requires:	python-ndg-httpsclient
-Requires:	python-pyOpenSSL
+Requires:	python-cryptography >= %{cryptography_ver}
+Requires:	python-pyOpenSSL >= %{pyopenssl_ver}
 Requires:	python-pyasn1
 Requires:	python-pyrfc3339
 Requires:	python-pytz
-Requires:	python-requests
-Requires:	python-six
-Requires:	python-werkzeug
+Requires:	python-requests >= %{requests_ver}
+Requires:	python-requests-toolbelt >= %{requests_toolbelt_ver}
+Requires:	python-six >= %{six_ver}
 Suggests:	python-acme-doc
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -68,15 +73,15 @@ Encrypt project.
 %package -n python3-acme
 Summary:	Python library for the ACME protocol
 Group:		Libraries/Python
-Requires:	python3-cryptography
-Requires:	python3-ndg_httpsclient
-Requires:	python3-pyOpenSSL
+Requires:	python3-cryptography >= %{cryptography_ver}
+Requires:	python3-josepy >= %{josepy_ver}
+Requires:	python3-pyOpenSSL >= %{pyopenssl_ver}
 Requires:	python3-pyasn1
 Requires:	python3-pyrfc3339
 Requires:	python3-pytz
-Requires:	python3-requests
-Requires:	python3-six
-Requires:	python3-werkzeug
+Requires:	python3-requests >= %{requests_ver}
+Requires:	python3-requests-toolbelt >= %{requests_toolbelt_ver}
+Requires:	python3-six >= %{six_ver}
 Suggests:	python-acme-doc
 
 %description -n python3-acme
@@ -111,8 +116,6 @@ Documentation for the ACME python libraries
 
 %if %{with doc}
 %{__make} -C docs html
-# build documentation
-%{__python} setup.py install --user
 
 # Clean up stuff we don't need for docs
 rm -rf docs/_build/html/{.buildinfo,_sources}
@@ -129,13 +132,13 @@ ln -sf %{_datadir}/fonts/fontawesome/fontawesome-webfont.woff docs/_build/html/_
 
 %install
 rm -rf $RPM_BUILD_ROOT
-# Do python3 first so bin ends up from py2
-%if %{with python3}
-%py3_install
-%endif
 
 %if %{with python2}
 %py_install
+%endif
+
+%if %{with python3}
+%py3_install
 %endif
 
 %clean
@@ -147,7 +150,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.rst LICENSE.txt
 %{py_sitescriptdir}/%{module}
 %{py_sitescriptdir}/%{module}-%{version}*.egg-info
-%attr(755,root,root) %{_bindir}/jws
 %endif
 
 %if %{with python3}
