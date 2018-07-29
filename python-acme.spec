@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	doc	# don't build doc
-%bcond_without	tests	# do not perform "make test"
+%bcond_with	tests	# do not perform "make test"
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
@@ -16,7 +16,7 @@
 Summary:	Python library for the ACME protocol
 Name:		python-%{module}
 Version:	0.26.0
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/source/a/%{module}/%{module}-%{version}.tar.gz
@@ -113,15 +113,6 @@ Documentation for the ACME python libraries
 
 # Clean up stuff we don't need for docs
 rm -rf docs/_build/html/{.buildinfo,_sources}
-
-# Unbundle fonts already on system
-# Lato ttf is in texlive but that adds a lot of dependencies (30+MB) for just a font in documentation
-# and lato is not in it's own -fonts package, only texlive
-rm -f docs/_build/html/_static/fonts/fontawesome*
-ln -sf %{_datadir}/fonts/fontawesome/fontawesome-webfont.eot docs/_build/html/_static/fonts/fontawesome-webfont.eot
-ln -sf %{_datadir}/fonts/fontawesome/fontawesome-webfont.svg docs/_build/html/_static/fonts/fontawesome-webfont.svg
-ln -sf %{_datadir}/fonts/fontawesome/fontawesome-webfont.ttf docs/_build/html/_static/fonts/fontawesome-webfont.ttf
-ln -sf %{_datadir}/fonts/fontawesome/fontawesome-webfont.woff docs/_build/html/_static/fonts/fontawesome-webfont.woff
 %endif
 
 %install
