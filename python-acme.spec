@@ -16,7 +16,7 @@
 Summary:	Python library for the ACME protocol
 Name:		python-%{module}
 Version:	0.26.0
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/source/a/%{module}/%{module}-%{version}.tar.gz
@@ -91,13 +91,7 @@ Encrypt project.
 
 %package doc
 Summary:	Documentation for python-acme libraries
-Requires:	fontawesome-fonts
-Requires:	fontawesome-fonts-web
-Provides:	bundled(inconsolata-fonts)
-Provides:	bundled(jquery)
-Provides:	bundled(lato-fonts)
-Provides:	bundled(robotoslab-fonts)
-Provides:	bundled(underscore)
+Group:		Documentation
 
 %description doc
 Documentation for the ACME python libraries
