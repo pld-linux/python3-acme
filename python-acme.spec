@@ -30,6 +30,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-pyOpenSSL >= %{pyopenssl_ver}
 BuildRequires:	python-pyrfc3339
 BuildRequires:	python-requests >= %{requests_ver}
+BuildRequires:	python-sphinx_rtd_theme
 BuildRequires:	sphinx-pdg
 %if %{with tests}
 BuildRequires:	python-josepy >= %{josepy_ver}
@@ -45,6 +46,7 @@ BuildRequires:	python3-devel
 BuildRequires:	python3-pyOpenSSL >= %{pyopenssl_ver}
 BuildRequires:	python3-pyrfc3339
 BuildRequires:	python3-requests >= %{requests_ver}
+BuildRequires:	python3-sphinx_rtd_theme
 %if %{with tests}
 BuildRequires:	python3-josepy >= %{josepy_ver}
 BuildRequires:	python3-mock
