@@ -15,12 +15,12 @@
 %define		module  acme
 Summary:	Python library for the ACME protocol
 Name:		python-%{module}
-Version:	1.2.0
-Release:	7
+Version:	1.27.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 Source0:	https://pypi.python.org/packages/source/a/%{module}/%{module}-%{version}.tar.gz
-# Source0-md5:	3502f789350c80e77b15d0aecf2f4ebf
+# Source0-md5:	3d950fd6465f8e85800a62eb7e76be19
 URL:		https://pypi.python.org/pypi/acme
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.713
