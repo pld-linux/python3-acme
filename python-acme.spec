@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_without	doc	# don't build doc
-%bcond_with	tests	# do not perform "make test"
+%bcond_without	doc	# Sphinx documentation
+%bcond_with	tests	# unit tests
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
@@ -14,16 +14,18 @@
 
 %define		module  acme
 Summary:	Python library for the ACME protocol
+Summary(pl.UTF-8):	Biblioteka Pythona do protokołu ACME
 Name:		python-%{module}
 Version:	1.27.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
-Source0:	https://pypi.python.org/packages/source/a/%{module}/%{module}-%{version}.tar.gz
+#Source0Download: https://pypi.org/simple/acme/
+Source0:	https://files.pythonhosted.org/packages/source/a/acme/%{module}-%{version}.tar.gz
 # Source0-md5:	3d950fd6465f8e85800a62eb7e76be19
-URL:		https://pypi.python.org/pypi/acme
+URL:		https://pypi.org/project/acme/
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.713
+BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
 BuildRequires:	python-cryptography >= %{cryptography_ver}
 BuildRequires:	python-devel
@@ -68,12 +70,19 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Python 2 library for use of the Automatic Certificate Management
+Python library for use of the Automatic Certificate Management
 Environment protocol as defined by the IETF. It's used by the Let's
 Encrypt project.
 
+%description -l pl.UTF-8
+Biblioteka Pythona do korzystania z protokołu Automatic Certificate
+Management Environment (środowiska automatycznego zarządzania
+certyfikatami) zdefiniowanego przez IETF. Jest używana przez projekt
+Let's Encrypt.
+
 %package -n python3-acme
 Summary:	Python library for the ACME protocol
+Summary(pl.UTF-8):	Biblioteka Pythona do protokołu ACME
 Group:		Libraries/Python
 Requires:	python3-cryptography >= %{cryptography_ver}
 Requires:	python3-josepy >= %{josepy_ver}
@@ -87,16 +96,26 @@ Requires:	python3-six >= %{six_ver}
 Suggests:	python-acme-doc
 
 %description -n python3-acme
-Python 3 library for use of the Automatic Certificate Management
+Python library for use of the Automatic Certificate Management
 Environment protocol as defined by the IETF. It's used by the Let's
 Encrypt project.
 
+%description -n python3-acme -l pl.UTF-8
+Biblioteka Pythona do korzystania z protokołu Automatic Certificate
+Management Environment (środowiska automatycznego zarządzania
+certyfikatami) zdefiniowanego przez IETF. Jest używana przez projekt
+Let's Encrypt.
+
 %package doc
-Summary:	Documentation for python-acme libraries
+Summary:	Documentation for python-acme library
+Summary(pl.UTF-8):	Dokumentacja do biblioteki python-acme
 Group:		Documentation
 
 %description doc
-Documentation for the ACME python libraries
+Documentation for the ACME Python library.
+
+%description doc -l pl.UTF-8
+Dokumentacja do biblioteki Pythona ACME.
 
 %prep
 %setup -q -n %{module}-%{version}
