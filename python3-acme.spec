@@ -8,7 +8,7 @@ Summary:	Python library for the ACME protocol
 Summary(pl.UTF-8):	Biblioteka Pythona do protokołu ACME
 Name:		python3-%{module}
 Version:	1.32.0
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/acme/
