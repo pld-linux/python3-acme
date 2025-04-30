@@ -7,26 +7,25 @@
 Summary:	Python library for the ACME protocol
 Summary(pl.UTF-8):	Biblioteka Pythona do protokołu ACME
 Name:		python3-%{module}
-Version:	1.32.0
-Release:	3
+Version:	4.0.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/acme/
 Source0:	https://files.pythonhosted.org/packages/source/a/acme/%{module}-%{version}.tar.gz
-# Source0-md5:	ff30c912210078136dca039370aab100
+# Source0-md5:	96283d18a19754cf0e489359b6204da8
 URL:		https://pypi.org/project/acme/
 BuildRequires:	python3-devel >= 1:3.7
 BuildRequires:	python3-setuptools >= 1:41.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with doc} || %{with tests}
-BuildRequires:	python3-cryptography >= 2.5
-BuildRequires:	python3-josepy >= 1.13
-BuildRequires:	python3-pyOpenSSL >= 17.5
+BuildRequires:	python3-cryptography >= 43.0.0
+BuildRequires:	python3-josepy >= 2.0.0
+BuildRequires:	python3-pyOpenSSL >= 25.0
 BuildRequires:	python3-pyrfc3339
 BuildRequires:	python3-pytz >= 2019.3
-BuildRequires:	python3-requests >= 2.20
-BuildRequires:	python3-requests-toolbelt >= 0.3
+BuildRequires:	python3-requests >= 2.20.0
 %endif
 %if %{with tests}
 BuildRequires:	python3-pytest
@@ -69,8 +68,8 @@ Dokumentacja do biblioteki Pythona ACME.
 
 %if %{with tests}
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-PYTHONPATH=$(pwd) \
-%{__python3} -m pytest tests
+PYTHONPATH=$(pwd)/build-3 \
+%{__python3} -m pytest build-3
 %endif
 
 %if %{with doc}
