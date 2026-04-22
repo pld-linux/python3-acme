@@ -15,10 +15,12 @@ Group:		Libraries/Python
 Source0:	https://files.pythonhosted.org/packages/source/a/acme/%{module}-%{version}.tar.gz
 # Source0-md5:	7a08585eec80fbca7b795ddbafe7304e
 URL:		https://pypi.org/project/acme/
-BuildRequires:	python3-devel >= 1:3.10
+BuildRequires:	python3-build
+BuildRequires:	python3-installer
+BuildRequires:	python3-modules >= 1:3.10
 BuildRequires:	python3-setuptools >= 1:61
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.714
+BuildRequires:	rpmbuild(macros) >= 2.044
 %if %{with doc} || %{with tests}
 BuildRequires:	python3-cryptography >= 43.0.0
 BuildRequires:	python3-josepy >= 2.0.0
@@ -63,15 +65,17 @@ Dokumentacja do biblioteki Pythona ACME.
 %setup -q -n %{module}-%{version}
 
 %build
-%py3_build
+%py3_build_pyproject
 
 %if %{with tests}
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-PYTHONPATH=$(pwd)/build-3 \
-%{__python3} -m pytest build-3
+PYTHONPATH=$(pwd)/src \
+%{__python3} -m pytest src/acme
 %endif
 
 %if %{with doc}
+%{__python3} -m zipfile -e build-3/*.whl build-3-doc
+PYTHONPATH=$(pwd)/build-3-doc \
 %{__make} -C docs html \
 	SPHINXBUILD=sphinx-build-3
 %endif
@@ -79,7 +83,7 @@ PYTHONPATH=$(pwd)/build-3 \
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%py3_install
+%py3_install_pyproject
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -88,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README.rst
 %{py3_sitescriptdir}/%{module}
-%{py3_sitescriptdir}/%{module}-%{version}-py*.egg-info
+%{py3_sitescriptdir}/%{module}-%{version}.dist-info
 
 %if %{with doc}
 %files doc
