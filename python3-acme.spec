@@ -7,13 +7,13 @@
 Summary:	Python library for the ACME protocol
 Summary(pl.UTF-8):	Biblioteka Pythona do protokołu ACME
 Name:		python3-%{module}
-Version:	5.5.0
+Version:	5.10.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/acme/
 Source0:	https://files.pythonhosted.org/packages/source/a/acme/%{module}-%{version}.tar.gz
-# Source0-md5:	7a08585eec80fbca7b795ddbafe7304e
+# Source0-md5:	2d6b62c55214edf6dd3f7be030a1e1b6
 URL:		https://pypi.org/project/acme/
 BuildRequires:	python3-build
 BuildRequires:	python3-installer
@@ -22,7 +22,7 @@ BuildRequires:	python3-setuptools >= 1:61
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 2.044
 %if %{with doc} || %{with tests}
-BuildRequires:	python3-cryptography >= 43.0.0
+BuildRequires:	python3-cryptography >= 47.0.0
 BuildRequires:	python3-josepy >= 2.0.0
 BuildRequires:	python3-pyOpenSSL >= 25.0
 BuildRequires:	python3-pyrfc3339
